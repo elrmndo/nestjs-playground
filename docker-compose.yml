@@ -1,0 +1,30 @@
+version: '3.7'
+
+services:
+  mysql:
+    container_name: nestjs-playground-mysql
+    image: mysql:latest
+    ports:
+      - 3306:3306
+    volumes:
+      - playground-volume:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=playground
+    networks:
+      - playground-network
+  adminer:
+    container_name: nestjs-playground-adminer
+    image: adminer:latest
+    ports:
+      - 8080:8080
+    networks:
+      - playground-network
+
+networks:
+  playground-network:
+    external: true
+
+volumes:
+  playground-volume:
+    external: true
