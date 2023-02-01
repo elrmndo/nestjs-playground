@@ -6,6 +6,10 @@ import { CatsModule } from './cats/cats.module';
 import { LoggerMiddleware } from './logger.middleware';
 import { UsersModule } from './users/users.module';
 import { PhotosModule } from './photos/photos.module';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import commonConfig from './config/common.config';
+import databaseConfig from './config/database.config';
+
 
 @Injectable()
 class TypeOrmConfigService implements TypeOrmOptionsFactory {
@@ -25,7 +29,10 @@ class TypeOrmConfigService implements TypeOrmOptionsFactory {
 
 @Module({
   imports: [
-
+    ConfigModule.forRoot({
+      envFilePath: '.env.development',
+      load: [commonConfig, databaseConfig]
+    }),
     TypeOrmModule.forRootAsync({ 
       // Use imports: [COnfigModule], useExisting: ConfigService
       useClass: TypeOrmConfigService 

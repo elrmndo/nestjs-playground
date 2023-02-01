@@ -1,0 +1,1 @@
+export const normalizePort = (port: string) => parseInt(port, 10);
