@@ -10,6 +10,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import commonConfig from './config/common.config';
 import databaseConfig from './config/database.config';
 import { ThrottlerModule } from '@nestjs/throttler';
+import { AuthModule } from './auth/auth.module';
 
 
 @Injectable()
@@ -42,7 +43,7 @@ class TypeOrmConfigService implements TypeOrmOptionsFactory {
       // Use imports: [COnfigModule], useExisting: ConfigService
       useClass: TypeOrmConfigService 
     }), 
-    UsersModule, CatsModule, PhotosModule
+    AuthModule, UsersModule, CatsModule, PhotosModule, 
   ],
   controllers: [AppController],
   providers: [AppService],

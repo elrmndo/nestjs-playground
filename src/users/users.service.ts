@@ -8,8 +8,12 @@ export class UsersService {
 	constructor(
 		@InjectRepository(User)
 		private usersRepository: Repository<User>,
-		private dataSource: DataSource
+		private dataSource: DataSource,
 	) {}
+
+	findByUsername(username: string): Promise<User | undefined> {
+		return this.usersRepository.findOneBy({ username });
+	}
 
 	findAll(): Promise<User[]> {
 		return this.usersRepository.find();
