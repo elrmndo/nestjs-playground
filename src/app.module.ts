@@ -9,6 +9,7 @@ import { PhotosModule } from './photos/photos.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import commonConfig from './config/common.config';
 import databaseConfig from './config/database.config';
+import { ThrottlerModule } from '@nestjs/throttler';
 
 
 @Injectable()
@@ -29,6 +30,10 @@ class TypeOrmConfigService implements TypeOrmOptionsFactory {
 
 @Module({
   imports: [
+    ThrottlerModule.forRoot({
+      ttl: 60,
+      limit: 10,
+    }),
     ConfigModule.forRoot({
       envFilePath: '.env.development',
       load: [commonConfig, databaseConfig]
